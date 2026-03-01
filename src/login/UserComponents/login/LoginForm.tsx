@@ -13,26 +13,21 @@ import Visibility from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRef, useState } from "react";
 import TextField from "../../components/TextField";
-import type { I18n } from "../../i18n";
 import type { KcContext } from "../../KcContext";
 
 interface LoginFormProps {
   kcContext: Extract<KcContext, { pageId: "login.ftl" }>;
-  i18n: I18n;
 }
 
 const LoginForm = (props: LoginFormProps) => {
-  const { kcContext, i18n } = props;
-  const { msgStr } = i18n;
-  const { url, login } = kcContext;
+  const { kcContext } = props;
+  const { url, login, message } = kcContext;
   const [disableEmail, setDisableEmail] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showPasswordField, setShowPasswordField] = useState<boolean>(false);
   const passwordInputRef = useRef<HTMLInputElement>(null);
-
-  const { message } = kcContext;
 
   const [formData, setFormData] = useState({
     email: login.username || "",
@@ -41,7 +36,7 @@ const LoginForm = (props: LoginFormProps) => {
 
   const handleNextClick = () => {
     if (!formData.email) {
-      setErrors({ email: msgStr("missingUsernameMessage") });
+      setErrors({ email: ("missingUsernameMessage") });
       return;
     }
     setShowPasswordField(true);
@@ -92,7 +87,7 @@ const LoginForm = (props: LoginFormProps) => {
           fullWidth
           type="email"
           disabled={disableEmail}
-          label={errors["email"] || msgStr("email")}
+          label={errors["email"] || ("Email")}
           error={!!errors["email"]}
           value={formData.email}
           onEnterFunc={handleNextClick}
@@ -125,7 +120,7 @@ const LoginForm = (props: LoginFormProps) => {
         <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
           <TextField
             fullWidth
-            label={errors["password"] || msgStr("password")}
+            label={errors["password"] || ("Password")}
             type={showPassword ? "text" : "password"}
             error={!!errors["password"]}
             value={formData.password}
@@ -161,7 +156,7 @@ const LoginForm = (props: LoginFormProps) => {
 
           }}
         >
-          {msgStr("noAccount")}{' '}
+          {("You don't have account?")}
 
           <Typography
             variant="body2"
@@ -177,7 +172,7 @@ const LoginForm = (props: LoginFormProps) => {
               }
             }}
           >
-            {msgStr("doRegister")}
+            {("Register")}
           </Typography>
 
         </Typography>
@@ -195,14 +190,12 @@ const LoginForm = (props: LoginFormProps) => {
             }
           }}
         >
-          {msgStr("doForgotPassword")}
+          {("Forgot Password")}
 
         </Typography>
 
       </Grid>
-      <Grid size={{ xs: 12 }} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 
-      </Grid>
     </Grid>
   );
 };

@@ -1,29 +1,27 @@
-
-// import type { I18n } from "./i18n";
+// LoginPage.tsx
 import { Typography } from "@mui/material";
 import LoginForm from "./LoginForm";
-import { I18n } from "../../i18n";
 import { KcContext } from "../../KcContext";
 import TextType from "../../components/textTyping";
 import UserAuthLayout from "../UserAuthLayout";
 
-export default function LoginPage(props: { kcContext: KcContext; i18n: I18n }) {
-    const { kcContext, i18n } = props;
-    const { msgStr } = i18n;
+
+// Добави i18n към пропсовете
+export default function LoginPage(props: { kcContext: KcContext }) {
+    const { kcContext } = props;
 
     if (kcContext.pageId !== "login.ftl") {
         return null;
     }
 
     return (
-        <UserAuthLayout kcContext={kcContext} i18n={i18n}>
-
+        <UserAuthLayout kcContext={kcContext} >
             <Typography variant="h4" fontWeight={600} mb={4}>
                 <TextType
                     text={[
-                        msgStr("loginAccountTitle"),
-                        msgStr("loginAccountTitle"),
-                        msgStr("loginAccountTitle"),
+                        ("Log in"), // Използваме msgStr вместо t
+                        ("Log in"),
+                        ("Log in"),
                     ]}
                     typingSpeed={75}
                     pauseDuration={1500}
@@ -32,19 +30,9 @@ export default function LoginPage(props: { kcContext: KcContext; i18n: I18n }) {
                 />
             </Typography>
 
-            <LoginForm kcContext={kcContext} i18n={i18n} />
-            <Typography
-                variant="body2"
-                color="text.secondary"
-                mt={8}
-                width={"100%"}
-                textAlign={"center"}
-                position={"absolute"}
-                bottom={16}
-            >
-                © {new Date().getFullYear()}{" "}
-                {("DamilSoft — Empowering Fitness Businesses")}
-            </Typography>
+            {/* Подаваме i18n и на самата форма, ако тя има текстове за превод */}
+            <LoginForm kcContext={kcContext} />
+
         </UserAuthLayout>
     );
 }

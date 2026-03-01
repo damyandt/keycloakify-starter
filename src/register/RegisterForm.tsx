@@ -1,19 +1,15 @@
 import {
-    // Checkbox,
     CircularProgress,
-    // FormControlLabel,
     Grid,
     IconButton,
     InputAdornment,
-    // Typography,
 } from "@mui/material";
-// import { Link as MuiLink } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useState } from "react";
-
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "../login/components/TextField";
 import { KcContext } from "../kc.gen";
-import { I18n } from "../login/i18n";
 
 export interface RegisterPayload {
     email: string;
@@ -24,17 +20,18 @@ export interface RegisterPayload {
 }
 interface RegisterFormProps {
     kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
-    i18n: I18n
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
+    const { kcContext } = props; // 3. Деструктурираме i18n
     const [isAgreed, _setIsAgreed] = useState<boolean>(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState<boolean>(false);
-    const { kcContext, i18n } = props;
-    const { msgStr } = i18n; // Използваме i18n от Keycloakify
     const { url, messagesPerField, profile } = kcContext;
-    // Функция за безопасно извличане на стойност от атрибутите на профила
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
     const getAttributeValue = (name: string): string => {
         const attr = (profile as any).attributes?.find?.((a: any) => a.name === name);
         return attr?.value ?? "";
@@ -83,12 +80,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
     return (
         <>
-            <Grid container spacing={2} sx={{ px: 4 }}>
+            <Grid container spacing={2} sx={{ px: 4, maxWidth: 400, mt: 2 }}>
                 <Grid size={{ xs: 6 }}>
                     <TextField
                         disabled={loading}
                         fullWidth
-                        label={messagesPerField.get("firstName") || msgStr("firstName")}
+                        label={messagesPerField.get("firstName") || ("First Name")}
                         error={messagesPerField.exists("firstName")}
                         value={user.firstName}
                         onChange={(e) => handleChange("firstName", e.target.value)}
@@ -99,7 +96,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                     <TextField
                         disabled={loading}
                         fullWidth
-                        label={messagesPerField.get("lastName") || msgStr("lastName")}
+                        label={messagesPerField.get("lastName") || ("Last Name")}
                         error={messagesPerField.exists("lastName")}
                         value={user.lastName}
                         onChange={(e) => handleChange("lastName", e.target.value)}
@@ -110,87 +107,65 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                     <TextField
                         disabled={loading}
                         fullWidth
-                        label={messagesPerField.get("email") || msgStr("email")}
+                        label={messagesPerField.get("email") || ("Email")}
                         error={messagesPerField.exists("email")}
                         value={user.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                     />
                 </Grid>
-                {/* 
-                <Grid size={{ xs: 12 }}>
-                    <TextField
-                        disabled={loading}
-                        fullWidth
-                        label={messagesPerField.get("phone") || msgStr("phone")}
-                        error={messagesPerField.exists("phone")}
-                        value={user.phone}
-                        placeholder="+359..."
-                        onChange={(e) => handleChange("phone", e.target.value)}
-                    />
-                </Grid> */}
 
                 <Grid size={{ xs: 12 }}>
                     <TextField
                         disabled={loading}
-                        type="password"
+                        // Динамичен тип според състоянието
+                        type={showPassword ? "text" : "password"}
                         fullWidth
-                        label={messagesPerField.get("password") || msgStr("password")}
+                        label={messagesPerField.get("password") || "Password"}
                         error={messagesPerField.exists("password")}
                         value={user.password}
                         onChange={(e) => handleChange("password", e.target.value)}
                         onEnterFunc={handleRegister}
                         InputProps={{
-                            endAdornment: loading ? (
-                                <CircularProgress />
-                            ) : (
+                            endAdornment: (
                                 <InputAdornment position="end">
+                                    {/* Бутон за показване/скриване */}
                                     <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
                                         edge="end"
-                                        onClick={handleRegister}
                                         size="small"
-                                        disabled={
-                                            !isAgreed ||
-                                            !user.email ||
-                                            !user.password ||
-                                            !user.firstName ||
-                                            !user.lastName ||
-                                            !user.phone ||
-                                            loading
-                                        }
+
+                                        disabled={loading}
                                     >
-                                        <ArrowForwardIcon
-                                            color={isAgreed ? "primary" : "disabled"}
-                                        />
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
+
+                                    {loading ? (
+                                        <CircularProgress size={24} />
+                                    ) : (
+                                        <IconButton
+                                            edge="end"
+                                            onClick={handleRegister}
+                                            size="small"
+                                            disabled={
+                                                !isAgreed ||
+                                                !user.email ||
+                                                !user.password ||
+                                                !user.firstName ||
+                                                !user.lastName ||
+                                                loading
+                                            }
+                                        >
+                                            <ArrowForwardIcon
+                                                color={isAgreed ? "primary" : "disabled"}
+                                            />
+                                        </IconButton>
+                                    )}
                                 </InputAdornment>
                             ),
                         }}
                     />
                 </Grid>
-                {/* <Grid size={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={isAgreed}
-                                onChange={e => setIsAgreed(e.target.checked)}
-                                color="primary"
-                                size="small"
-                            />
-                        }
-                        label={
-                            <Typography variant="caption" color="text.secondary">
-                                {msgStr("agree")}{" "}
-                                <MuiLink href="/legal?tab=1" target="_blank">
-                                    {msgStr("Terms of Service")}
-                                </MuiLink>{" "}
-                                {msgStr("and")}{" "}
-                                <MuiLink href="/legal?tab=0" target="_blank">
-                                    {msgStr("Privacy Policy")}
-                                </MuiLink>
-                            </Typography>
-                        }
-                    />
-                </Grid> */}
             </Grid>
 
         </>

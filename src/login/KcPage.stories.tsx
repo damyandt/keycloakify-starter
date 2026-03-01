@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import KcPage from "./KcPage";
-import { createGetKcContextMock } from "keycloakify/login/KcContext";
+
 import { themeNames, kcEnvDefaults } from "../kc.gen";
+import { createGetKcContextMock } from "keycloakify/login/kcContext";
 
 // Дефинираме съобщенията тук, за да ги подадем на Storybook
 const extraMessages = {
@@ -54,7 +55,7 @@ export const Login: Story = {
                 overrides: {
                     login: {
                         attributes: [
-                            { name: "email", value: "Ivan" },
+                            // { name: "email", value: "Ivan" },
 
                         ]
                     } as any
@@ -73,10 +74,24 @@ export const Register: Story = {
                 overrides: {
                     profile: {
                         attributes: [
-                            { name: "firstName", value: "Ivan" },
-                            { name: "phone", value: "+359888123456" }
+                            // { name: "firstName", value: "Ivan" },
+                            // { name: "phone", value: "+359888123456" }
                         ]
                     } as any
+                }
+            }),
+            // ПОДАВАМЕ ПРЕВОДИТЕ ТУК: Това премахва грешката за липсващ ключ 'phone'
+            extraMessages
+        } as any
+    },
+};
+export const ResetPassword: Story = {
+    args: {
+        kcContext: {
+            ...getKcContextMock({
+                pageId: "login-reset-password.ftl",
+                overrides: {
+
                 }
             }),
             // ПОДАВАМЕ ПРЕВОДИТЕ ТУК: Това премахва грешката за липсващ ключ 'phone'

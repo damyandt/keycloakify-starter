@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { KcPage } from "./kc.gen";
 import { getKcContextMock } from "./login/KcPage.stories";
-// ВАЖНО: Само импортираме вече създадената функция от историите
+import "./login/i18n"
 
 if (import.meta.env.DEV) {
     // Тук само ИЗПОЛЗВАМЕ функцията, без да я дефинираме с const
