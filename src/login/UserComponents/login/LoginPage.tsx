@@ -24,9 +24,9 @@ export default function LoginPage(props: { kcContext: KcContext }) {
                         ("Log in"),
                     ]}
                     typingSpeed={75}
-                    pauseDuration={1500}
+                    pauseDuration={2000}
                     showCursor={true}
-                    cursorCharacter="|"
+                    cursorCharacter=" | "
                 />
             </Typography>
 

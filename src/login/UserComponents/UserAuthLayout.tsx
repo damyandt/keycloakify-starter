@@ -16,20 +16,19 @@ export default function UserAuthLayout({ children }: LayoutProps) {
                 component="img"
                 src="damil-logo.png"
                 alt="Logo"
-
                 sx={{
                     position: "absolute",
-                    top: 22,
-                    left: 22,
-                    height: 40,
-                    width: "auto",
+                    zIndex: 100,
                     objectFit: "contain",
-                    zIndex: 100
+                    top: { xs: "10dvh", sm: 22 },
+                    left: { xs: "50%", sm: 22 },
+                    transform: { xs: "translateX(-50%)", sm: "none" },
+                    height: { xs: 120, sm: 40 },
+                    width: "auto",
                 }}
             />
 
-
-            <Box sx={{ position: "absolute", inset: 0, zIndex: -1 }}>
+            <Box sx={{ position: "absolute", inset: 0, zIndex: -1, display: { xs: "none", sm: "block" }, }}>
                 <Orb primaryColor={[0.2, 0.5, 1]} hue={0.1} hoverIntensity={0.5} />
             </Box>
 
