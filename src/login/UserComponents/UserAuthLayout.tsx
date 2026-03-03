@@ -29,7 +29,7 @@ export default function UserAuthLayout({ children }: LayoutProps) {
             />
 
             <Box sx={{ position: "absolute", inset: 0, zIndex: -1, display: { xs: "none", sm: "block" }, }}>
-                <Orb primaryColor={[0.2, 0.5, 1]} hue={0.1} hoverIntensity={0.5} />
+                <Orb primaryColor={[0.58, 0.639, 0.722]} hue={0.1} hoverIntensity={0.5} />
             </Box>
 
             <Box sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", zIndex: 1 }}>
