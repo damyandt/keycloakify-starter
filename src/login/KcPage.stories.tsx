@@ -94,7 +94,18 @@ export const ResetPassword: Story = {
 
                 }
             }),
-            // ПОДАВАМЕ ПРЕВОДИТЕ ТУК: Това премахва грешката за липсващ ключ 'phone'
+            extraMessages
+        } as any
+    },
+};
+export const UpdatePassword: Story = {
+    args: {
+        kcContext: {
+            ...getKcContextMock({
+                pageId: "login-update-password.ftl",
+                overrides: {
+                }
+            }),
             extraMessages
         } as any
     },

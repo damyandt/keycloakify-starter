@@ -3,20 +3,22 @@ import { Typography, Grid } from "@mui/material";
 import UserAuthLayout from "../login/UserComponents/UserAuthLayout";
 import TextType from "../login/components/textTyping";
 import { KcContext } from "../kc.gen";
-import ResetPasswordForm from "./ResetPasswordForm";
-interface ResetPasswordPageProps {
-    kcContext: Extract<KcContext, { pageId: "login-reset-password.ftl" }>;
+import UpdatePasswordForm from "./UpdatePasswordForm";
+
+interface UpdatePasswordPageProps {
+
+    kcContext: Extract<KcContext, { pageId: "login-update-password.ftl" }>;
 }
 
-const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
+const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
     const { kcContext } = props;
-    const { url, auth, message } = kcContext;
+    const { url, message } = kcContext;
 
     return (
         <UserAuthLayout kcContext={kcContext as any}>
             <Typography variant="h4" fontWeight={600} mb={5}>
                 <TextType
-                    text={["Reset Credentials", "Reset Credentials", "Reset Credentials"]}
+                    text={["Update Password", "Set New Password", "Secure Account"]}
                     typingSpeed={75}
                     pauseDuration={2000}
                     showCursor={true}
@@ -37,8 +39,7 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
                     </Grid>
                 )}
 
-                <ResetPasswordForm
-                    attemptedUsername={(auth as any)?.attemptedUsername ?? ""}
+                <UpdatePasswordForm
                     loginAction={(url as any).loginAction}
                 />
 
@@ -66,4 +67,4 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
     );
 };
 
-export default ResetPasswordPage;
+export default UpdatePasswordPage;

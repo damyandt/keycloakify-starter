@@ -5,11 +5,14 @@ import DefaultTemplate from "keycloakify/login/Template";
 import UserProfileFormFields from "keycloakify/login/UserProfileFormFields";
 import RegisterPage from "../register/RegisterPage";
 import ResetPasswordPage from "../resetCredential/ResetPassword";
+import { useI18n } from "./i18n";
+import UpdatePasswordPage from "../updatePassword/UpdatePassword";
 
 const LoginPage = lazy(() => import("./UserComponents/login/LoginPage"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
+    const { i18n } = useI18n({ kcContext });
     switch (kcContext.pageId) {
         case "login.ftl":
             return (
@@ -35,12 +38,20 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     />
                 </Suspense>
             );
+        case "login-update-password.ftl":
+            return (
+                <Suspense fallback={null}>
+                    <UpdatePasswordPage
+                        kcContext={kcContext}
+                    />
+                </Suspense>
+            );
 
         default:
             return (
                 <DefaultPage
                     kcContext={kcContext}
-                    i18n={(kcContext as any).i18n}
+                    i18n={i18n}
                     classes={undefined}
                     Template={DefaultTemplate}
                     doUseDefaultCss={true}
