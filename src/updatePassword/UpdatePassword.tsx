@@ -13,12 +13,14 @@ interface UpdatePasswordPageProps {
 const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
     const { kcContext } = props;
     const { url, message } = kcContext;
-
+    const titleText = (message as any)?.summary?.includes("first time")
+        ? ["Welcome!", "Set Your Password", "Secure Your Account"]
+        : ["Update Password", "Set New Password", "Secure Account"];
     return (
         <UserAuthLayout kcContext={kcContext as any}>
             <Typography variant="h4" fontWeight={600} mb={5}>
                 <TextType
-                    text={["Update Password", "Set New Password", "Secure Account"]}
+                    text={titleText}
                     typingSpeed={75}
                     pauseDuration={2000}
                     showCursor={true}
