@@ -16,7 +16,7 @@ export default function LoginPage(props: { kcContext: KcContext }) {
 
     return (
         <UserAuthLayout kcContext={kcContext} >
-            <Typography variant="h4" fontWeight={600} mb={4}>
+            <Typography variant="h2" fontWeight={600} mb={4} zIndex={1000}>
                 <TextType
                     text={[
                         ("Log in"), // Използваме msgStr вместо t

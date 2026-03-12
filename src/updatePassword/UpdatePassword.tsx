@@ -18,7 +18,7 @@ const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
         : ["Update Password", "Set New Password", "Secure Account"];
     return (
         <UserAuthLayout kcContext={kcContext as any}>
-            <Typography variant="h4" fontWeight={600} mb={5}>
+            <Typography variant="h2" fontWeight={600} mb={5} zIndex={100}>
                 <TextType
                     text={titleText}
                     typingSpeed={75}
@@ -30,11 +30,11 @@ const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
 
             <Grid container spacing={2} sx={{ maxWidth: 400 }}>
                 {message && (
-                    <Grid size={{ xs: 12 }}>
+                    <Grid size={{ xs: 12 }} zIndex={100}>
                         <Typography
                             color={(message as any).type === "error" ? "error" : "info"}
                             variant="caption"
-                            sx={{ mb: 2, display: 'block', textAlign: 'center' }}
+                            sx={{ mb: 2, display: 'block', textAlign: 'center', zIndex: 10 }}
                         >
                             {(message as any).summary}
                         </Typography>
@@ -45,12 +45,13 @@ const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
                     loginAction={(url as any).loginAction}
                 />
 
-                <Grid size={{ xs: 12 }} sx={{ mt: 2, textAlign: "center" }}>
+                <Grid size={{ xs: 12 }} sx={{ mt: 2, textAlign: "center" }} zIndex={100}>
                     <Typography
                         variant="body2"
                         component="a"
                         href={(url as any).loginUrl}
                         sx={{
+                            zIndex: 100,
                             color: 'text.secondary',
                             textDecoration: 'none',
                             fontSize: '0.75rem',

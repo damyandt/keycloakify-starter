@@ -1,8 +1,12 @@
 import {
+    Box,
+    Checkbox,
     CircularProgress,
+    FormControlLabel,
     Grid,
     IconButton,
     InputAdornment,
+    Typography,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useState } from "react";
@@ -10,6 +14,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "../login/components/TextField";
 import { KcContext } from "../kc.gen";
+import Collapse from "../login/components/Collapse";
 
 export interface RegisterPayload {
     email: string;
@@ -24,10 +29,10 @@ interface RegisterFormProps {
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     const { kcContext } = props; // 3. Деструктурираме i18n
-    const [isAgreed, _setIsAgreed] = useState<boolean>(false);
+    const [isAgreed, setIsAgreed] = useState<boolean>(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState<boolean>(false);
-    const { url, messagesPerField, profile } = kcContext;
+    const { url, messagesPerField, profile, message } = kcContext;
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -80,7 +85,18 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
     return (
         <>
-            <Grid container spacing={2} sx={{ px: 4, maxWidth: 400, mt: 2 }}>
+            <Grid container spacing={2} sx={{ px: 4, maxWidth: 400, mt: 1, zIndex: 10 }}>
+                <Collapse in={message !== undefined} sx={{ width: '100%' }}>
+                    <Grid size={{ xs: 12 }}>
+                        <Typography
+                            color={message?.type === "error" ? "error" : "info"}
+                            variant="caption"
+                            sx={{ mb: 1, display: 'block', textAlign: 'center', width: '100%' }}
+                        >
+                            {message?.summary}
+                        </Typography>
+                    </Grid>
+                </Collapse>
                 <Grid size={{ xs: 6 }}>
                     <TextField
                         disabled={loading}
@@ -165,6 +181,28 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                             ),
                         }}
                     />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                    <Box sx={{ mt: 1 }}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    disabled={loading}
+                                    color="primary"
+                                    checked={isAgreed}
+                                    onChange={(e) => setIsAgreed(e.target.checked)}
+                                />
+                            }
+                            label={
+                                <Typography fontSize={"0.7rem"} color={'#d1d1d1'} zIndex={10}>
+                                    {("I agree to the")}{" "}
+                                    {("Terms of Service")}
+                                    {("and")}{" "}
+                                    {("Privacy Policy")}
+                                </Typography>
+                            }
+                        />
+                    </Box>
                 </Grid>
             </Grid>
 

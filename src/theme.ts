@@ -1,10 +1,5 @@
 import { PaletteMode } from "@mui/material";
-import {
-  createTheme,
-  responsiveFontSizes,
-  Theme,
-  ThemeOptions,
-} from "@mui/material/styles";
+import { createTheme, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material/styles";
 import { lighten, darken } from "@mui/system";
 
 declare module "@mui/material/styles" {
@@ -124,8 +119,7 @@ const theme = (mode: PaletteMode, mainColor: string) => {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: (theme: Theme) =>
-              theme.palette.customColors?.themeBackground,
+            backgroundColor: (theme: Theme) => theme.palette.customColors?.themeBackground,
           },
         },
       },
@@ -158,10 +152,8 @@ const theme = (mode: PaletteMode, mainColor: string) => {
             ? darken(mainColor, 0.1) // По-малко агресивно потъмняване
             : darken(mainColor, 0.2),
         contrastText: "#FFFFFF",
-        light100:
-          mode === "light" ? lighten(mainColor, 0.5) : lighten(mainColor, 0.6),
-        light200:
-          mode === "light" ? lighten(mainColor, 0.25) : lighten(mainColor, 0.3),
+        light100: mode === "light" ? lighten(mainColor, 0.5) : lighten(mainColor, 0.6),
+        light200: mode === "light" ? lighten(mainColor, 0.25) : lighten(mainColor, 0.3),
         light300: lighten(mainColor, 0.2),
         light400: lighten(mainColor, 0.1),
         opacityMain: mainColor + "20",
@@ -178,19 +170,12 @@ const theme = (mode: PaletteMode, mainColor: string) => {
       customColors: {
         greyText: mode === "light" ? "#5A5A5A" : "#d3d3d3",
         darkGrey: "#2d2d2d",
-        darkBackgroundColor:
-          mode === "dark" ? darken(mainColor, 0.9) : lighten(mainColor, 0.95),
+        darkBackgroundColor: mode === "dark" ? darken(mainColor, 0.9) : lighten(mainColor, 0.95),
         darkGray: darken(mainColor, 0.5),
-        sectionBackgroundColor:
-          mode === "dark" ? "#222222ff" : lighten(mainColor, 1),
-        shodowColor:
-          mode === "dark" ? "rgba(255, 255, 255, 0.06)" : "rgba(0, 0, 0, 0.08)",
-        shodow:
-          mode === "dark"
-            ? "0 0 5px rgba(255, 255, 255, 0.1)"
-            : "0 0 5px rgba(0, 0, 0, 0.2)",
-        tableBackground:
-          mode === "dark" ? darken(mainColor, 0.9) : lighten(mainColor, 0.95),
+        sectionBackgroundColor: mode === "dark" ? "#222222ff" : lighten(mainColor, 1),
+        shodowColor: mode === "dark" ? "rgba(255, 255, 255, 0.06)" : "rgba(0, 0, 0, 0.08)",
+        shodow: mode === "dark" ? "0 0 5px rgba(255, 255, 255, 0.1)" : "0 0 5px rgba(0, 0, 0, 0.2)",
+        tableBackground: mode === "dark" ? darken(mainColor, 0.9) : lighten(mainColor, 0.95),
         tableRow: mode === "dark" ? "#222222ff" : "#fff",
         scrollbarThumb: mode === "dark" ? "#555555" : "#c1c1c1",
       },
@@ -281,10 +266,7 @@ const theme = (mode: PaletteMode, mainColor: string) => {
         fontWeight: 500,
         fontSize: "1rem",
         lineHeight: 1.66,
-        color:
-          mode === "light"
-            ? staticThemeColors.grey[900]
-            : staticThemeColors.grey[400],
+        color: mode === "light" ? staticThemeColors.grey[900] : staticThemeColors.grey[400],
       },
     },
     shape: {

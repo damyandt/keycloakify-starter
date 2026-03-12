@@ -14,7 +14,7 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
 
     return (
         <UserAuthLayout kcContext={kcContext as any}>
-            <Typography variant="h4" fontWeight={600} mb={5}>
+            <Typography variant="h2" fontWeight={600} mb={5} zIndex={100}>
                 <TextType
                     text={["Reset Credentials", "Reset Credentials", "Reset Credentials"]}
                     typingSpeed={75}
@@ -24,13 +24,13 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
                 />
             </Typography>
 
-            <Grid container spacing={2} sx={{ maxWidth: 400 }}>
+            <Grid container spacing={2} sx={{ maxWidth: 400 }} zIndex={100}>
                 {message && (
-                    <Grid size={{ xs: 12 }}>
+                    <Grid size={{ xs: 12 }} zIndex={100}>
                         <Typography
                             color={(message as any).type === "error" ? "error" : "info"}
                             variant="caption"
-                            sx={{ mb: 2, display: 'block', textAlign: 'center' }}
+                            sx={{ mb: 2, display: 'block', textAlign: 'center', zIndex: 10 }}
                         >
                             {(message as any).summary}
                         </Typography>
@@ -42,12 +42,13 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
                     loginAction={(url as any).loginAction}
                 />
 
-                <Grid size={{ xs: 12 }} sx={{ mt: 2, textAlign: "center" }}>
+                <Grid size={{ xs: 12 }} sx={{ mt: 2, textAlign: "center", zIndex: 10 }}>
                     <Typography
                         variant="body2"
                         component="a"
                         href={(url as any).loginUrl}
                         sx={{
+                            zIndex: 1000,
                             color: 'text.secondary',
                             textDecoration: 'none',
                             fontSize: '0.75rem',

@@ -9,12 +9,8 @@ export type KcContextExtension = {
 };
 
 export type KcContextExtensionPerPage = {};
-
-// 2. Тук е "магията" - дефинираме типа директно през ExtendKcContext
-// Това избягва търсенето на липсващия 'KcContext' експорт
 export type KcContext = ExtendKcContext<KcContextExtension, KcContextExtensionPerPage>;
 
-// 3. Правилното деструктуриране на Mock функцията
 export const { getKcContextMock: getKcContext } = createGetKcContextMock<
   KcContext,
   KcContextExtensionPerPage

@@ -7,6 +7,7 @@ import RegisterPage from "../register/RegisterPage";
 import ResetPasswordPage from "../resetCredential/ResetPassword";
 import { useI18n } from "./i18n";
 import UpdatePasswordPage from "../updatePassword/UpdatePassword";
+import ThemeProvider from "./components/ThemeContext";
 
 const LoginPage = lazy(() => import("./UserComponents/login/LoginPage"));
 
@@ -17,33 +18,41 @@ export default function KcPage(props: { kcContext: KcContext }) {
         case "login.ftl":
             return (
                 <Suspense fallback={null}>
-                    <LoginPage
-                        kcContext={kcContext}
-                    />
+                    <ThemeProvider>
+                        <LoginPage
+                            kcContext={kcContext}
+                        />
+                    </ThemeProvider>
                 </Suspense>
             );
         case "register.ftl":
             return (
                 <Suspense fallback={null}>
-                    <RegisterPage
-                        kcContext={kcContext}
-                    />
+                    <ThemeProvider>
+                        <RegisterPage
+                            kcContext={kcContext}
+                        />
+                    </ThemeProvider>
                 </Suspense>
             );
         case "login-reset-password.ftl":
             return (
                 <Suspense fallback={null}>
-                    <ResetPasswordPage
-                        kcContext={kcContext}
-                    />
+                    <ThemeProvider>
+                        <ResetPasswordPage
+                            kcContext={kcContext}
+                        />
+                    </ThemeProvider>
                 </Suspense>
             );
         case "login-update-password.ftl":
             return (
                 <Suspense fallback={null}>
-                    <UpdatePasswordPage
-                        kcContext={kcContext}
-                    />
+                    <ThemeProvider>
+                        <UpdatePasswordPage
+                            kcContext={kcContext}
+                        />
+                    </ThemeProvider>
                 </Suspense>
             );
 

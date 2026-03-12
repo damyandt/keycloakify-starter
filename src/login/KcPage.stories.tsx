@@ -53,15 +53,29 @@ export const Login: Story = {
             ...getKcContextMock({
                 pageId: "login.ftl",
                 overrides: {
-                    login: {
-                        attributes: [
-                            // { name: "email", value: "Ivan" },
+                    // message: {
+                    //     type: "error",
+                    //     summary: "Invalid username or password."
+                    // },
+                    // login: {
+                    //     attributes: [
+                    //         // { name: "email", value: "Ivan" },
 
+                    //     ]
+                    // } as any
+                    social: {
+                        displayInfo: true,
+                        providers: [
+                            {
+                                loginUrl: "#",
+                                alias: "google",
+                                displayName: "Google",
+                                providerId: "google"
+                            }
                         ]
-                    } as any
+                    }
                 }
             }),
-            // ПОДАВАМЕ ПРЕВОДИТЕ ТУК: Това премахва грешката за липсващ ключ 'phone'
             extraMessages
         } as any
     },
@@ -72,15 +86,18 @@ export const Register: Story = {
             ...getKcContextMock({
                 pageId: "register.ftl",
                 overrides: {
-                    profile: {
-                        attributes: [
-                            // { name: "firstName", value: "Ivan" },
-                            // { name: "phone", value: "+359888123456" }
-                        ]
-                    } as any
+                    // message: {
+                    //     type: "error",
+                    //     summary: "Invalid username or password."
+                    // },
+                    // profile: {
+                    //     attributes: [
+                    //         { name: "firstName", value: "Ivan" },
+                    //         { name: "phone", value: "+359888123456" }
+                    //     ]
+                    // } as any
                 }
             }),
-            // ПОДАВАМЕ ПРЕВОДИТЕ ТУК: Това премахва грешката за липсващ ключ 'phone'
             extraMessages
         } as any
     },
@@ -91,7 +108,10 @@ export const ResetPassword: Story = {
             ...getKcContextMock({
                 pageId: "login-reset-password.ftl",
                 overrides: {
-
+                    // message: {
+                    //     type: "error",
+                    //     summary: "Invalid username or password."
+                    // },
                 }
             }),
             extraMessages
@@ -104,6 +124,10 @@ export const UpdatePassword: Story = {
             ...getKcContextMock({
                 pageId: "login-update-password.ftl",
                 overrides: {
+                    // message: {
+                    //     type: "error",
+                    //     summary: "Invalid username or password."
+                    // },
                 }
             }),
             extraMessages

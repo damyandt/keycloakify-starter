@@ -16,7 +16,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
     return (
 
         <UserAuthLayout kcContext={kcContext} >
-            <Typography variant="h4" fontWeight={600} mb={1}>
+            <Typography variant="h2" fontWeight={600} mb={1} zIndex={1000}>
                 <TextType
                     text={[("Register"), ("Register"), ("Register")]}
                     typingSpeed={75}
@@ -31,22 +31,23 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
             <Typography
                 variant="body2"
                 sx={{
+                    zIndex: 10,
                     mt: 2,
                     textAlign: "center",
                     color: 'text.secondary',
-                    fontSize: '0.75rem' // Същото като в LoginForm
+                    fontSize: '0.75rem'
                 }}
             >
                 {("You already have account? ")}{" "}
                 <Typography
                     variant="body2"
-                    component="a" // Използваме компонент "a", за да имитираме поведението в LoginForm
+                    component="a"
                     href={url.loginUrl}
                     sx={{
                         color: 'text.secondary',
                         textDecoration: 'none',
                         fontSize: '0.75rem',
-                        fontWeight: 500, // Уеднаквено тегло
+                        fontWeight: 500,
                         '&:hover': {
                             textDecoration: 'underline',
                             color: 'primary.main'

@@ -1,8 +1,6 @@
-"use client";
 
 import { ElementType, useEffect, useRef, useState, createElement } from "react";
 import { gsap } from "gsap";
-import { useTheme } from "@mui/material";
 
 interface TextTypeProps {
   className?: string;
@@ -51,7 +49,6 @@ const TextType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
-  const theme = useTheme();
   const cursorRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLElement>(null);
 
@@ -61,11 +58,6 @@ const TextType = ({
     if (!variableSpeed) return typingSpeed;
     const { min, max } = variableSpeed;
     return Math.random() * (max - min) + min;
-  };
-
-  const getCurrentTextColor = () => {
-    if (textColors.length === 0) return theme.palette.text.primary;
-    return textColors[currentTextIndex % textColors.length];
   };
 
   useEffect(() => {
@@ -131,7 +123,7 @@ const TextType = ({
 
           setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
           setCurrentCharIndex(0);
-          timeout = setTimeout(() => {}, pauseDuration);
+          timeout = setTimeout(() => { }, pauseDuration);
         } else {
           timeout = setTimeout(() => {
             setDisplayedText((prev) => prev.slice(0, -1));
@@ -193,7 +185,7 @@ const TextType = ({
     },
     <span
       className="text-type__content"
-      style={{ color: getCurrentTextColor() }}
+      style={{ color: "#d1d1d1ff" }} // Можеш да го хардкоднеш и директно тук
     >
       {displayedText}
     </span>,
@@ -201,6 +193,7 @@ const TextType = ({
       <span
         ref={cursorRef}
         className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? "text-type__cursor--hidden" : ""}`}
+        style={{ color: "#d1d1d1ff" }}
       >
         {cursorCharacter}
       </span>
