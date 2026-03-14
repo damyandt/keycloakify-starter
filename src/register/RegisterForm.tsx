@@ -176,7 +176,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                                         onClick={handleClickShowPassword}
                                         edge="end"
                                         size="small"
-
+                                        sx={{ zIndex: 1000 }}
                                         disabled={loading}
                                     >
                                         {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -189,6 +189,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                                             edge="end"
                                             onClick={handleRegister}
                                             size="small"
+                                            sx={{ zIndex: 1000 }}
                                             disabled={
                                                 !isAgreed ||
                                                 !user.email ||
