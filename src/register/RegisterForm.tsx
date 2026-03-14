@@ -27,8 +27,10 @@ interface RegisterFormProps {
     kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
 }
 
+const STORAGE_KEY = "register_form_data";
+
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
-    const { kcContext } = props; // 3. Деструктурираме i18n
+    const { kcContext } = props;
     const [isAgreed, setIsAgreed] = useState<boolean>(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState<boolean>(false);
@@ -42,12 +44,26 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         return attr?.value ?? "";
     };
 
-    const [user, setUser] = useState<RegisterPayload>({
-        email: getAttributeValue("email"),
-        firstName: getAttributeValue("firstName"),
-        lastName: getAttributeValue("lastName"),
-        phone: getAttributeValue("phone"), // или "user.attributes.phone"
-        password: ""
+    const getSavedFormData = (): Partial<RegisterPayload> => {
+        try {
+            const saved = sessionStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                sessionStorage.removeItem(STORAGE_KEY);
+                return JSON.parse(saved);
+            }
+        } catch { /* ignore */ }
+        return {};
+    };
+
+    const [user, setUser] = useState<RegisterPayload>(() => {
+        const saved = getSavedFormData();
+        return {
+            email: saved.email || getAttributeValue("email"),
+            firstName: saved.firstName || getAttributeValue("firstName"),
+            lastName: saved.lastName || getAttributeValue("lastName"),
+            phone: saved.phone || getAttributeValue("phone"),
+            password: ""
+        };
     });
 
     const handleChange = (field: keyof RegisterPayload, value: string) => {
@@ -58,9 +74,19 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     const handleRegister = () => {
         setLoading(true);
 
+        // Запазваме данните в sessionStorage преди submit (без паролата)
+        try {
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phone: user.phone,
+            }));
+        } catch { /* ignore */ }
+
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = url.registrationAction; // Критично за JAR файла
+        form.action = url.registrationAction;
 
         const fields = {
             "firstName": user.firstName,
@@ -68,7 +94,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
             "email": user.email,
             "password": user.password,
             "password-confirm": user.password,
-            "user.attributes.phone": user.phone // Остани с това засега
+            "user.attributes.phone": user.phone
         };
 
         Object.entries(fields).forEach(([key, value]) => {
