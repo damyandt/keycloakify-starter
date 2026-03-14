@@ -196,7 +196,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                             label={
                                 <Typography fontSize={"0.7rem"} color={'#d1d1d1'} zIndex={10}>
                                     {("I agree to the")}{" "}
-                                    {("Terms of Service")}
+                                    {("Terms of Service")}{" "}
                                     {("and")}{" "}
                                     {("Privacy Policy")}
                                 </Typography>

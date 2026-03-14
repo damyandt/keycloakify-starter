@@ -24,7 +24,7 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = (props) => {
                 />
             </Typography>
 
-            <Grid container spacing={2} sx={{ maxWidth: 400 }} zIndex={100}>
+            <Grid container spacing={2} sx={{ maxWidth: 400 }} zIndex={100} px={4}>
                 {message && (
                     <Grid size={{ xs: 12 }} zIndex={100}>
                         <Typography

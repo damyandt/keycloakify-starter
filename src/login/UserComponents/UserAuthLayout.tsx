@@ -11,7 +11,7 @@ export default function UserAuthLayout({ children }: LayoutProps) {
 
     const theme = useTheme();
     return (
-        <Box sx={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden", backgroundColor: theme.palette.customColors?.darkBackgroundColor, }}>
+        <Box sx={{ position: "relative", width: "100%", height: "100vh", overflow: "hidden", backgroundColor: theme.palette.customColors?.darkBackgroundColor, }}>
             <Box
                 component="img"
                 src="damil-logo.png"
@@ -40,7 +40,7 @@ export default function UserAuthLayout({ children }: LayoutProps) {
                         md: "scale(1)",
                     },
                     transformOrigin: "center",
-                    width: "100vw",
+                    width: "100%",
                     height: "100dvh",
                     backgroundColor: theme.palette.customColors?.darkBackgroundColor,
                 }}

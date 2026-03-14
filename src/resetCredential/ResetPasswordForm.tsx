@@ -31,7 +31,7 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ attemptedUsername
     };
 
     return (
-        <Grid size={{ xs: 12 }}>
+        <Grid size={{ xs: 12 }} >
             <TextField
                 fullWidth
                 label="Email"

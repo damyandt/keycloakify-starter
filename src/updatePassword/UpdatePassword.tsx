@@ -28,7 +28,7 @@ const UpdatePasswordPage: React.FC<UpdatePasswordPageProps> = (props) => {
                 />
             </Typography>
 
-            <Grid container spacing={2} sx={{ maxWidth: 400 }}>
+            <Grid container spacing={2} sx={{ maxWidth: 400 }} px={4}>
                 {message && (
                     <Grid size={{ xs: 12 }} zIndex={100}>
                         <Typography
